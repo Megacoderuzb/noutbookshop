@@ -1,6 +1,6 @@
 // Update with your config settings.
 const env = require("dotenv");
-const config = require("./shared/config");
+const config = require("./src/shared/config");
 env.config();
 
 /**
@@ -8,7 +8,7 @@ env.config();
  */
 module.exports = {
   development: {
-    client: "postgres",
+    client: "postgresql",
     connection: {
       filename: "./dev.postgresql",
     },
