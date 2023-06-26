@@ -46,11 +46,19 @@ const showNotebooks = async (req, res, next) => {
         "notebooks.madels_id",
         "notebooks.category_id",
         "brands.brand_name",
+        "notebooks.image_id",
+        "pictures.img_url",
         "madels.name",
         "categories.category_name"
       )
       .where({ "notebooks.id": id })
-      .groupBy("notebooks.id", "categories.id", "brands.id", "madels.id")
+      .groupBy(
+        "notebooks.id",
+        "categories.id",
+        "brands.id",
+        "madels.id",
+        "pictures.id"
+      )
       .first();
     if (!notebook) {
       res.status(400).json({
