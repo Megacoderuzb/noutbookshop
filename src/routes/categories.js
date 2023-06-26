@@ -6,6 +6,8 @@ const {
   patchCategoriesSchema,
 } = require("../controllers/categories/schemas");
 const CategoriesController = require("../controllers/categories");
+const upload = require("../uploads");
+// const { up } = require("../../migrations/20230624120114_categories");
 
 const router = express.Router();
 
@@ -13,6 +15,7 @@ const mPostCategories = [
   isLoggedIn,
   isAdmin,
   genValidator(postCategoriesSchema),
+  upload.single("image"),
 ];
 const mGetCategories = [isLoggedIn];
 const mShowCategories = [isLoggedIn];
@@ -20,27 +23,24 @@ const mPatchCategories = [
   isLoggedIn,
   isAdmin,
   genValidator(patchCategoriesSchema),
+  upload.single("image"),
 ];
 const mDeleteCategories = [isLoggedIn, isAdmin];
 
 router.post(
-  "/Categories",
+  "/categories",
   mPostCategories,
   CategoriesController.postCategories
 );
-router.get("/Categories", mGetCategories, CategoriesController.getCategories);
-router.get(
-  "/Categories/:id",
-  mShowCategories,
-  CategoriesController.showCategories
-);
+router.get("/categories", CategoriesController.getCategories);
+router.get("/categories/:id", CategoriesController.showCategories);
 router.patch(
-  "/Categories/:id",
+  "/categories/:id",
   mPatchCategories,
   CategoriesController.patchCategories
 );
 router.delete(
-  "/Categories/:id",
+  "/categories/:id",
   mDeleteCategories,
   CategoriesController.deleteCategories
 );

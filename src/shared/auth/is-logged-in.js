@@ -24,7 +24,8 @@ const isLoggedIn = (req, res, next) => {
 
     next();
   } catch (error) {
-    throw new NotFoundErr("Unauthorized! Ruxsat berilmagan!", error);
+    // throw new NotFoundErr("Unauthorized! Ruxsat berilmagan!", error);
+    next();
   }
 };
 

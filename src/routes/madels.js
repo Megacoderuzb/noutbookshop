@@ -6,18 +6,28 @@ const {
   patchMadelschema,
 } = require("../controllers/madels/schemas");
 const madelsController = require("../controllers/madels");
-
+const upload = require("../uploads");
 const router = express.Router();
 
-const mPostMadel = [isLoggedIn, isAdmin, genValidator(postMadelschema)];
-const mGetMadels = [isLoggedIn];
-const mShowMadels = [isLoggedIn];
-const mPatchMadel = [isLoggedIn, isAdmin, genValidator(patchMadelschema)];
+const mPostMadel = [
+  isLoggedIn,
+  isAdmin,
+  genValidator(postMadelschema),
+  upload.single("image"),
+];
+// const mGetMadels = [isLoggedIn];
+// const mShowMadels = [isLoggedIn];
+const mPatchMadel = [
+  isLoggedIn,
+  isAdmin,
+  genValidator(patchMadelschema),
+  upload.single("image"),
+];
 const mDeleteMadel = [isLoggedIn, isAdmin];
 
-router.post("/madels", mPostMadel, madelsController.postMadel);
-router.get("/madels", mGetMadels, madelsController.getMadels);
-router.get("/madels/:id", mShowMadels, madelsController.showMadel);
-router.patch("/madels/:id", mPatchMadel, madelsController.patchMadel);
-router.delete("/madels/:id", mDeleteMadel, madelsController.deleteMadel);
+router.post("/madels", mPostMadel, madelsController.postMadels);
+router.get("/madels", madelsController.getMadels);
+router.get("/madels/:id", madelsController.showMadels);
+router.patch("/madels/:id", mPatchMadel, madelsController.patchMadels);
+router.delete("/madels/:id", mDeleteMadel, madelsController.deleteMadels);
 module.exports = router;

@@ -3,7 +3,7 @@ class BadRequestErr extends Error {
     super(msg);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, BadRequestError);
+      Error.captureStackTrace(this, BadRequestErr);
     }
   }
 }
@@ -13,7 +13,7 @@ class NotFoundErr extends Error {
     super(msg);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, NotFoundError);
+      Error.captureStackTrace(this, NotFoundErr);
     }
   }
 }
@@ -22,8 +22,8 @@ class UnauthorizedErr extends Error {
   constructor(msg) {
     super(msg);
 
-    if(Error.captureStackTrace) {
-      Error.captureStackTrace(this, UnauthorizedError)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, UnauthorizedErr);
     }
   }
 }

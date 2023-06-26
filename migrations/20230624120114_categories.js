@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("categories", (table) => {
     table.increments("id").primary();
-    table.string("category_name");
+    table.string("category_name").unique();
   });
 };
 

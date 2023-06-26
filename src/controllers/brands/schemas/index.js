@@ -1,8 +1,13 @@
 const Joi = require("joi");
 
-exports.patchBrandsSchema = Joi.object({
-  name: Joi.string().required(),
+patchBrandsSchema = Joi.object({
+  brand_name: Joi.string().required(),
 });
-exports.postBrandsSchema = Joi.object({
-  name: Joi.string().required(),
+postBrandsSchema = Joi.object({
+  brand_name: Joi.string().required(),
 });
+
+module.exports = {
+  patchBrandsSchema,
+  postBrandsSchema,
+};

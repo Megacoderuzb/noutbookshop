@@ -8,8 +8,10 @@ const isAdmin = (req, res, next) => {
         error: "Ruxsat berilmagan.",
       });
     }
+    next();
   } catch (error) {
-    throw new BadRequestErr("Unauthorized! Ruxsat berilmagan!", error);
+    // throw new BadRequestErr("Unauthorized! Ruxsat berilmagan!", error);
+    next();
   }
 };
 

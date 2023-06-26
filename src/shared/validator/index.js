@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 /**
  *
@@ -8,13 +8,14 @@ const Joi = require('joi');
 module.exports = function genValidator(schema) {
   return async (req, res, next) => {
     try {
+      next();
       await schema.validateAsync(req.body);
 
       next();
     } catch (error) {
       console.log(error);
       res.status(400).json({
-        error: error.details[0].message,
+        error: error,
       });
     }
   };

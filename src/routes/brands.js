@@ -2,22 +2,33 @@ const express = require("express");
 const genValidator = require("../shared/validator");
 const { isLoggedIn, isAdmin } = require("../shared/auth");
 const {
-  postBrandschema,
-  patchBrandschema,
+  postBrandsSchema,
+  patchBrandsSchema,
 } = require("../controllers/brands/schemas");
 const brandsController = require("../controllers/brands");
+const upload = require("../uploads");
 
 const router = express.Router();
 
-const mPostBrand = [isLoggedIn, isAdmin, genValidator(postBrandschema)];
-const mGetBrands = [isLoggedIn];
-const mShowBrands = [isLoggedIn];
-const mPatchBrand = [isLoggedIn, isAdmin, genValidator(patchBrandschema)];
+const mPostBrand = [
+  isLoggedIn,
+  isAdmin,
+  genValidator(postBrandsSchema),
+  upload.single("image"),
+];
+// const mGetBrands = [isLoggedIn];
+// const mShowBrands = [isLoggedIn];
+const mPatchBrand = [
+  isLoggedIn,
+  isAdmin,
+  genValidator(patchBrandsSchema),
+  upload.array("image"),
+];
 const mDeleteBrand = [isLoggedIn, isAdmin];
 
-router.post("/Brands", mPostBrand, brandsController.postBrand);
-router.get("/Brands", mGetBrands, brandsController.getBrands);
-router.get("/Brands/:id", mShowBrands, brandsController.showBrand);
-router.patch("/Brands/:id", mPatchBrand, brandsController.patchBrand);
-router.delete("/Brands/:id", mDeleteBrand, brandsController.deleteBrand);
+router.post("/brands", mPostBrand, brandsController.postBrands);
+router.get("/brands", brandsController.getBrands);
+router.get("/brands/:id", brandsController.showBrands);
+router.patch("/brands/:id", mPatchBrand, brandsController.patchBrands);
+router.delete("/brands/:id", mDeleteBrand, brandsController.deleteBrands);
 module.exports = router;

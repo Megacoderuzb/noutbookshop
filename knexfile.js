@@ -1,7 +1,4 @@
-// Update with your config settings.
-const env = require("dotenv");
 const config = require("./src/shared/config");
-env.config();
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -11,6 +8,9 @@ module.exports = {
     client: "postgresql",
     connection: {
       filename: "./dev.postgresql",
+      database: config.db_name,
+      user: config.db_user,
+      password: config.db_password,
     },
   },
 

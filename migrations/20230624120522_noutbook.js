@@ -23,7 +23,11 @@ exports.up = function (knex) {
       .onDelete("SET NULL");
     table.text("description").defaultTo(" ");
     table.integer("price").defaultTo(0);
-    table.integer("image_id").references("id").inTable("pictures");
+    table
+      .integer("image_id")
+      .references("id")
+      .inTable("pictures")
+      .onDelete("SET NULL");
     table.timestamp("created_at").defaultTo(knex.fn.now()).notNullable();
   });
 };
